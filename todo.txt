@@ -32,3 +32,5 @@
     
 -Adminin toiminnot
     *lisää admin toiminnot(kunhan muut toiminnot ensin kuntoon)
+
+-Koodin siistiminen
