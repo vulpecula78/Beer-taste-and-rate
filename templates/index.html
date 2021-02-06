@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block title %}Etusivu{% endblock %}
+{% block content %}
+    <p style="color:rgb(112, 230, 226);text-align:center;">
+      Oluen ystävien paikka, jossa voit jakaa mielipiteesi oluista tai tutustua muiden arvosteluihin.
+    </p>
+    <div class="spacer"></div>
+    <img class="pcenter" src="{{ url_for('static', filename='/beercans.JPG') }}" alt="Olut tölkkejä">
+    <br/> <br/>
+    <div class="spacer"></div>
+
+    <form action="/login" method="POST" style="color:rgb(112, 230, 226);text-align:center;">
+        Käyttäjätunnus: <input type="text" name="username" size="20">
+        Salasana: <input type="password" name="password" size="20">
+        <br><br>        
+        <input type="submit" value="Kirjaudu" style="height:50px;width:200px">
+      </form>
+    <br/><br/>
+    
+
+    <div style="color:rgb(112, 230, 226);text-align:center;margin:auto;">
+      Eikö tunnuksia?  <a href="/new_user"> Luo tunnukset</a> tai <a href="/main">jatka kirjautumatta</a> 
+      <br/> <br/> <br/>
+    </div>
+    <p>
+      <br>
+    </p>
+{% endblock %}

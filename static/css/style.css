@@ -1,0 +1,37 @@
+p {
+  color: green; background-color: red;
+}
+
+f {
+    color: yellow;
+    text-align:center!important;
+}
+
+.pcenter {
+  display: block!important;
+  margin-left: auto!important;
+  margin-right: auto!important;
+}
+
+.spacer {
+    height: 40px;
+}
+
+td .btn {
+  position: absolute;
+  margin-top: 7px;
+  float: right;
+  margin-left: 5px;
+}
+
+td input {
+  float: left;
+}
+
+input {    
+    margin-bottom: 8px;
+}
+
+select {
+    margin-bottom: 8px;
+}

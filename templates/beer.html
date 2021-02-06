@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block title %}Etusivu{% endblock %}
+{% block content %}
+
+<table border="1" cellpadding="5" cellspacing="5" style="color:rgb(112, 230, 226)">
+{% for row in beerdata %}
+    <tr>
+    {% for item in row %}
+        <td>{{ item }}</td>
+    {% endfor %}
+    {% if session.username %}
+    <td style = "btn">
+      <form action="/review" style="btn"> <input type="hidden" name="beer" value="{{beerdata[0][0]}}"><input type="submit" value="Arvostele"> </form>
+    </td>
+{% endif %}
+    </tr>
+{% endfor %}
+</table> 
+
+{{beer}}
+
+<p>
+  Arvostelut:
+</p>
+
+<table border="1" cellpadding="5" cellspacing="5" style="color:rgb(112, 230, 226)">
+{% for row in ratings %}
+    <tr>
+    {% for item in row %}
+        <td>{{ item }}</td>
+    {% endfor %}
+    </tr>
+{% endfor %}
+</table>
+
+<input type="button" name="Takaisin" value="Takaisin" onClick="window.location.href='/main';" />
+
+{% for content in beer %}
+    {{ beerdata[0] }} 
+{% endfor %}
+{% endblock %}

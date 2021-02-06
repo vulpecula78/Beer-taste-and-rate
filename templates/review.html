@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block title %}Etusivu{% endblock %}
+{% block content %}
+    
+    <h3 style="color:rgb(112, 230, 226)"> {{beerdata[0][0]}}</h3>
+    <br>
+    <form action="/new_review" method="POST" style="color:rgb(112, 230, 226)">
+     <br>
+      Arvostelu:<br>
+      <textarea name="review" rows="4" cols="30"></textarea>
+      <br>
+      Pisteet:<br>
+      <input type="number" min="1" max="10" step="1" name="score" size="10">
+      <input type="hidden" name="beer" value="{{beerdata[0][0]}}">
+      <input type="hidden" name="username" value="{{ session.username }}">
+      <input type="submit" value="Arvostele"> 
+      <br>
+      <input type="submit" name="Peruuta" value="cancel" onClick="window.location.href='/main';" />
+    <br>
+    </form>
+
+{% endblock %}

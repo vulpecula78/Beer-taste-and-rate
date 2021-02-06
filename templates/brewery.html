@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% block title %}Etusivu{% endblock %}
+{% block content %}
+
+  <f>
+    Lisää tietokantaan panimo, maa tai olet tyyppi.<br>
+  </f>
+  <spacer></spacer>
+  
+  <form action="/addbrewery" method="POST" style="color:rgb(112, 230, 226)">
+    <label for="name">Panimon nimi: </label>
+      <input type="text" name="brewery" size="20"> Panimon nimi esim. Brauerei Beck.<br>
+      <input type="submit" value="Lisää">
+  </form> 
+  
+  <form action="/addcountry" method="POST" style="color:rgb(112, 230, 226)">
+    <label for="name">Maan nimi: </label>
+      <input type="text" name="country" size="20"> Maan nimi esim. Guatemala.<br>
+      <input type="submit" value="Lisää">
+  </form> 
+  
+  <form action="/addtype" method="POST" style="color:rgb(112, 230, 226)">
+    <label for="name">Oluen tyyppi: </label>
+      <input type="text" name="beertype" size="20"> Panimon nimi esim. IPA.<br>
+      <input type="submit" value="Lisää">
+  </form> 
+  
+  <br>
+  <hr>
+  
+  <form action="/newbeer" style="color:rgb(112, 230, 226)">
+      <input type="submit" value="Valmis">
+  </form> 
+{% endblock %}

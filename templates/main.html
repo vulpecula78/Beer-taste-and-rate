@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block title %}Etusivu{% endblock %}
+{% block content %}
+ 
+<p>Tervetuloa {% if session.username %} {{ session.username }} {% endif %}</p>
+    
+    <f> 
+      Viimeisimmät 5 olutta:
+    </f>
+    <br>
+  <ol>
+    {% for beer in olut %}
+      <li><a href="/beer?beer={{beer[0]}}">{{ beer[0] }}</a></li>
+      <br>
+    {% endfor %}
+  </ol>
+  <br>
+  Etsi olut: 
+  <form action="/findbeer" method="POST" style="color:rgb(112, 230, 226)">  
+    <input type="text" name="name" size="20"><br>
+    <input type="submit" value="Etsi">
+  </form>
+<hr>
+
+{% if session.founded %}
+    Viimeisimmän haun tulokset: {{ session.founded }}
+
+     <li><a href="/beer?beer={{session.founded}}">{{ session.founded }}</a></li>
+
+{% endif %}
+<hr>
+{% if session.username %}
+  <a href="/newbeer"> Lisää olut</a>
+  <br>
+  <a href="/logout"> logout</a>
+  {% else %}
+  <a href="/"> Palaa alkuun</a>
+
+{% endif %}    
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block title %}New user{% endblock %}
+{% block content %}
+  <form action="/create_user" method="POST" style="color:rgb(112, 230, 226)">
+    <br>
+    Käyttäjänimi:
+    <input type="text" name="username" size="20"> 
+    Salasana:
+    <input type="password" name="password" size="20">
+    <br>
+    <input type="submit" value="Rekisteröi">
+  </form>
+  <form action="/" style="color:rgb(112, 230, 226)">
+    <input type="submit" value="Peruuta">
+  </form>
+{% endblock %}
