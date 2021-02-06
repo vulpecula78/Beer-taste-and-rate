@@ -1,0 +1,34 @@
+#TODO
+-Käyttäjän rekisteröinti ja kirjautuminen
+    *Palaute onnistuneesta käyttäjän rekisteröinnistä
+    */new_user sivun ulkoasu (+kuva)
+    *etusivun ulkoasun siistiminen/värimaailma
+    
+-Pääsivu (/main)
+    *Sivun ulkoasu
+    *Asiaan liittyvät kuvat 1 tai 2 kpl
+    *Hakutoiminnot
+    
+-Oluen lisäys(/newbeer)
+    *merkkimäärän rajoitukset nimeen ja kuvaukseen
+    *Sivun layout
+    *kuva tai 2
+    
+-Panimon, maan tai tyypin lisäys(/brewery)
+    *Nimien merkkimäärien rajoitukset
+    *sivun layout
+    *kuva?
+    
+-Oluen tarkastelu(/beer)
+    *Timestampit
+    *sarakkeiden otsikot
+    *layout
+    
+-Arvostelu sivu(review)
+    *layout
+    *cancel napin toiminta
+    *onnistuneen lisäyksen jälkeinen toiminta
+    *Arvosteluasteikko
+    
+-Adminin toiminnot
+    *lisää admin toiminnot(kunhan muut toiminnot ensin kuntoon)

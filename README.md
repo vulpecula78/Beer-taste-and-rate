@@ -11,3 +11,12 @@ arvosanojen keskiarvosta. Yksittäiset arvosanat on myös listattavissa.
 Käyttäjätasoja on kolme: admin, käyttäjä ja vieras. Admin voi täysin hallinnoida tietokantaa: lisätä, poistaa ja muokata oluita, panimoita, valmistusmaita ja
 tarvittaessa moderoida kommentteja. Käyttäjä voi pisteytyksen ja arvostelun lisäksi myös tarvittaessa lisätä tietokantaan oluen. Vieraalla on vain oikeus selata
 oluita ja niiden arvosteluja.
+
+Tällä hetkellä sovelluksen perustoiminnot ovat käytössä: sovellukselle voi luoda käyttäjän tai kirjautua vieraana. Sovelluksessa voi arvostella oluita tai lisätä
+niitä tietokantaan. Olutta voi etsiä nimen mukaan. Tietokantaan voi myös lisätä panimon, maan tai oluttyypin, mikäli niitä ei ole listalla. 
+
+Sovellus löytyy osoitteesta https://tsoha-beerrate.herokuapp.com/
+
+ Sovellusta voi testata, joko luomalla käyttäjä tai kirjautumalla nimellä Testaaja, salasana testaaja. Sovelluksen ulkoasu on pahasti keskeneräinen.
+ Sovelluksessa on vielä paljon puutteita. Ulkoasun lisäksi hakutoimintoja puuttuu, kuten haku maittain, sekä pisteiden keskiarvot. Selkeämpiä ilmoituksia virhetoiminnoista
+ja muuta ulosantia puuttuu. Lisäksi admin-käyttäjän toiminnot puuttuvat kokonaan. ks. todo.txt
