@@ -132,9 +132,8 @@ def login():
     if users.login(username, password):
         return redirect("/main")
     else:
+        flash("Väärä käyttäjätunnus tai salasana!!!")
         return redirect("/")
-            #return render_template("error.html",message="Väärä tunnus tai salasana")
-    #return redirect("/main")
 
 @app.route("/logout")
 def logout():
@@ -151,6 +150,12 @@ def new_user():
 def create_user():
     username = request.form["username"]
     password = request.form["password"]
+    if len(username) < 2:
+        flash("Ei kelvollinen käyttäjänimi")
+        return redirect("/new_user")
+    if len(password) < 6:
+        flash("Liian lyhyt salasana.")
+        return redirect("/new_user")
     if users.create_user(username, password):
         session["username"] = username
         return redirect("/")

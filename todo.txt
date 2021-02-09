@@ -1,8 +1,4 @@
 #TODO
--Käyttäjän rekisteröinti ja kirjautuminen
-    *Palaute onnistuneesta käyttäjän rekisteröinnistä
-    */new_user sivun ulkoasu (+kuva)
-    *etusivun ulkoasun siistiminen/värimaailma
     
 -Pääsivu (/main)
     *Sivun ulkoasu

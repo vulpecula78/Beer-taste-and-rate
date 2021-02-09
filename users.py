@@ -13,11 +13,10 @@ def login(username , password):
             session["username"] = username
             return True
         else:
-           return False
+            return False
 
 def create_user(username, password):
     hash_value = generate_password_hash(password)
-    print(hash_value)
     try:
         sql = "INSERT INTO users (username,password) VALUES (:username,:password)"
         db.session.execute(sql, {"username":username,"password":hash_value})
