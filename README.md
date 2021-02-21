@@ -14,14 +14,14 @@ Tällä hetkellä pääosa sovelluksen toiminnoista on valmiina: sovellukselle v
 
    Sovelluksen testaaminen:
 
-   Sovellus löytyy osoitteesta https://tsoha-beerrate.herokuapp.com/ 
-   Sovellukseen voi kirjautua käyttäjätunneksella Testaaja, salasana testaaja. Sovellusta voi myös testata luomalla uusi käyttäjä.
+    Sovellus löytyy osoitteesta https://tsoha-beerrate.herokuapp.com/ 
+    Sovellukseen voi kirjautua käyttäjätunneksella Testaaja, salasana testaaja. Sovellusta voi myös testata luomalla uusi käyttäjä.
 
-   Puutteet:
-   -Sovelluksen ulkoasussa on vielä keskeneräisyyksiä.
-   -Hakutoiminnosta puuttuu haun rajaaminen oluttyypin mukaan. 
-   -Joitain korjauksia virheilmoituksiin.
-   -Merkkimäärä rajoituksia puuttuu.
-   -Panimon, maan ja tyypin lisäyksessä pystyy lisäämään tyhjän kentän.
-   -Pisteiden keskiarvoa ei näkyvissä.
-   -Admin toiminnot puuttuvat
+    Puutteet:
+    -Sovelluksen ulkoasussa on vielä keskeneräisyyksiä.
+    -Hakutoiminnosta puuttuu haun rajaaminen oluttyypin mukaan. 
+    -Joitain korjauksia virheilmoituksiin.
+    -Merkkimäärä rajoituksia puuttuu.
+    -Panimon, maan ja tyypin lisäyksessä pystyy lisäämään tyhjän kentän.
+    -Pisteiden keskiarvoa ei näkyvissä.
+    -Admin toiminnot puuttuvat
