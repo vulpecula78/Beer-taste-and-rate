@@ -20,6 +20,7 @@ Tällä hetkellä pääosa sovelluksen toiminnoista on valmiina: sovellukselle v
    Sovellusta voi myös testata luomalla uusi käyttäjä.
 
    Puutteet:
+   
    -Sovelluksen ulkoasussa on vielä keskeneräisyyksiä.
    
    -Hakutoiminnosta puuttuu haun rajaaminen oluttyypin mukaan. 
