@@ -7,6 +7,19 @@ f {
     text-align:center!important;
 }
 
+g {
+  display: block;
+  margin-left: 30px;    
+}
+
+a:link {
+  color: green;
+}
+
+a:visited {
+  color: gray;
+}
+
 .pcenter {
   display: block!important;
   margin-left: auto!important;
@@ -31,9 +44,57 @@ td input {
 input {    
     margin-bottom: 8px;
     margin-right: 10px;
-    margin-left: 10px;
 }
 
 select {
     margin-bottom: 8px;
+}
+
+a.button:link, a.button:visited {
+  background-color: #f44336;
+  color: white;
+  padding: 14px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+a.button:hover, a.button:active {
+    background-color: red;
+}
+
+.block label { 
+    display: block;
+    text-align: left;
+}
+
+.areas {
+    display: table;
+    width: 100%;
+}
+
+.section {
+    display: table-cell;
+    width: 25%;
+}
+
+.leftarea {  
+  height: 400px;
+  width: 25%;
+  text-align: left;
+  left: 30px;
+  padding-left: 40px;
+}
+
+.middlearea {
+  height: 400px;
+  width: 33%;
+  text-align: left;
+  padding-top: 50px;
+  padding-left: 50px;
+}
+
+.rightarea {
+  width: 40%;
+  text-align: left;
 }

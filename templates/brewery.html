@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% block title %}Etusivu{% endblock %}
+{% block title %}Add brewery{% endblock %}
 {% block content %}
 
   <f>
@@ -23,11 +23,9 @@
     <label for="name">Oluen tyyppi: </label>
       <input type="text" name="beertype" size="20"> Panimon nimi esim. IPA.<br>
       <input type="submit" value="Lisää">
-  </form> 
-  
+  </form>   
   <br>
-  <hr>
-  
+  <hr>  
   <form action="/newbeer" style="color:rgb(112, 230, 226)">
       <input type="submit" value="Valmis">
   </form> 

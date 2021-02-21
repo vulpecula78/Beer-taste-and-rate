@@ -1,22 +1,63 @@
 {% extends "layout.html" %}
 {% block title %}Etusivu{% endblock %}
 {% block content %}
-    
-    <h3 style="color:rgb(112, 230, 226)"> {{beerdata[0][0]}}</h3>
-    <br>
+
+<p>
+  <br>
+</p>
+
+<h2 style="margin-left: 20px; color:rgb(112, 230, 226)"> {{beerdata[0][0]}}</h2>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+      {% for message in messages %}
+          <div style="color:red;text-align:center;">{{ message }}</div>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+<div class="areas">
+  <div class="leftarea section">
+    <f>
+      Kommentoi olutta lyhyesti ja anna arvosana väliltä 1 - 10.
+    </f>
     <form action="/new_review" method="POST" style="color:rgb(112, 230, 226)">
-     <br>
+      <br>
       Arvostelu:<br>
       <textarea name="review" rows="4" cols="30"></textarea>
-      <br>
+      <br><br>
       Pisteet:<br>
       <input type="number" min="1" max="10" step="1" name="score" size="10">
       <input type="hidden" name="beer" value="{{beerdata[0][0]}}">
       <input type="hidden" name="username" value="{{ session.username }}">
       <input type="submit" value="Arvostele"> 
       <br>
-      <input type="button" name="Peruuta" value="Peruuta" onClick="window.location.href='/main';">
-    <br>
+      <input type="button" name="Peruuta" value="Peruuta" onClick="window.location.href='/beer/{{beerdata[0][0]}}';">
+      <br>
     </form>
+  </div>
+  <div class="middlearea section">
+    <f>
+      Asteikko:<br>
+      <br>
+      10 pistettä: Täydellinen nautinto!<br>
+      &nbsp; 9 pistettä: Erinomainen olut, tästä on vaikea pistää paremmaksi.<br>
+      &nbsp; 8 pistettä: Todella hyvä olut, suosittelen vahvasti.<br>
+      &nbsp; 7 pistettä: Hyvää olutta.<br>
+      &nbsp; 6 pistettä: Keskitasoa parempaa.<br>
+      &nbsp; 5 pistettä: Keskitasoa.<br>
+      &nbsp; 4 pistettä: Ei pahaa, ihan juotavaa.<br>
+      &nbsp; 3 pistettä: Päihtymistarkoitukseen kelpaa, jos halvalla saa.<br>
+      &nbsp; 2 pistettä: Juotavaa ellei muuta saatavilla, mutta ei tästä maksaa kannata.<br>
+      &nbsp; 1 pistettä: Kuraa!!! Ei juotavaksi.<br>
+    </f>
+  </div>
+  <div class="rightarea">
+  </div>
+</div>
+<p>
+  <br>
+</p>
+<hr>
 
 {% endblock %}

@@ -2,9 +2,9 @@
 {% block title %}New user{% endblock %}
 {% block content %}
 
-  <p style="color:rgb(112, 230, 226);text-align:center;">
-    Rekisteröityminen.
-  </p>
+<p style="color:rgb(112, 230, 226);text-align:center;">
+  Rekisteröityminen.
+</p>
 <hr>
 {% with messages = get_flashed_messages() %}
   {% if messages %}
@@ -16,7 +16,7 @@
   {% endif %}
 {% endwith %}
 <hr>
-  <div style="text-align:center;color:yellow;">Anna käyttäjänimesi ja salasana, joka on vähintään 6 merkkiä.</div>
+  <div style="text-align:center;color:yellow;">Anna käyttäjänimesi ja salasana. Salasanan on oltava vähintään 6 merkkiä.</div>
   <form action="/create_user" method="POST" style="color:rgb(112, 230, 226); text-align:center;">
     <br>
     Käyttäjänimi:
@@ -26,11 +26,11 @@
     <br>
     <input type="submit" value="Rekisteröi" style="height:55px;width:200px">
   </form>
-<br>
+  <br>
   <form action="/" style="color:rgb(112, 230, 226); text-align:center;">
     <input type="submit" value="Takaisin" style="width:120px">
   </form>
-   <p style="align:bottom">
-    <br>
-  </p>
+<p style="align:bottom">
+  <br>
+</p>
 {% endblock %}

@@ -1,40 +1,92 @@
-{% extends "layout.html" %}
-{% block title %}Etusivu{% endblock %}
-{% block content %}
- 
-<p>Tervetuloa {% if session.username %} {{ session.username }} {% endif %}</p>
-    
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_main.css') }}">
+    <title>Olut arvosteluja: Maista ja kerro mielipiteesi</title>
+  </head>
+  
+  <body style="background-color:rgb(25, 25, 112);">
+    {% if session.username %}
+      <a style="float: right" class="button" href="/logout">Kirjaudu ulos!</a>
+    {% else %}
+      <a style="float: right" class="button" href="/"> Palaa alkuun</a>
+    {% endif %}
+      <br>
+      <h1 style="color:rgb(156, 161, 22);text-align:center;">Olut! Maista ja kerro mielipiteesi!</h1>
+  </body>
+    <hr>
+    <p>Tervetuloa {% if session.username %} {{ session.username }} ! {% endif %}</p> 
+
+<div class="areas">
+  <div class="leftarea section">
+    Hae olut:
+    <form action="/findbeer" method="POST" style="color:rgb(112, 230, 226)">  
+      <input type="text" name="name" size="20"> <select name="country" id="country">       
+      <option value="Kaikki">Kaikki</option> {% for maa in country %} <option value="{{ maa[0] }}"> {{ maa[1] }} </option> {% endfor %}  </select>
+      <input type="submit" value="Etsi">
+    </form> 
+    {% if session.founded %}
+      Haun tulokset, näytetään 8 ensimmäistä osumaa: 
+      <br>
+      <ol style="color: rgb(156, 161, 22)">
+        {% for row in search %}
+          {% for beer in row %}
+            <li><a href="/beer/{{beer}}">{{ beer }}</a></li>
+            <br>
+          {% endfor %}
+        {% endfor %}
+      </ol>
+      {% else %}
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul class=flashes>
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+      {% endif %}
+  </div>  
+
+  <div class="middlearea section">    
     <f> 
-      Viimeisimmät 5 olutta:
+      Uusimmat lisäykset:
     </f>
     <br>
-  <ol>
-    {% for beer in olut %}
-      <li><a href="/beer?beer={{beer[0]}}">{{ beer[0] }}</a></li>
-      <br>
-    {% endfor %}
-  </ol>
-  <br>
-  Etsi olut: 
-  <form action="/findbeer" method="POST" style="color:rgb(112, 230, 226)">  
-    <input type="text" name="name" size="20"><br>
-    <input type="submit" value="Etsi">
-  </form>
-<hr>
-
-{% if session.founded %}
-    Viimeisimmän haun tulokset: {{ session.founded }}
-
-     <li><a href="/beer?beer={{session.founded}}">{{ session.founded }}</a></li>
-
-{% endif %}
-<hr>
-{% if session.username %}
-  <a href="/newbeer"> Lisää olut</a>
-  <br>
-  <a href="/logout"> logout</a>
-  {% else %}
-  <a href="/"> Palaa alkuun</a>
-
-{% endif %}    
-{% endblock %}
+    <ol style="color:rgb(156, 161, 22)">
+      {% for beer in olut %}
+        <li><a href="/beer/{{beer[0]}}">{{ beer[0] }}</a></li>
+        <br>
+      {% endfor %}
+    </ol>
+    <br>     
+  </div>
+  <div class="rightarea section">
+    <f> 
+      &nbsp;&nbsp;Parhaat oluet (nimi; keskiarvo):
+    </f>
+    <br>
+    <ol style="color: rgb(156, 161, 22)">    
+      {% for beer in bests %} 
+          <li><a href="/beer/{{beer[0]}}">{{ beer[0]}}  &nbsp; &nbsp; &nbsp; {{ beer[1] }}</a></li>        
+        <br>
+      {% endfor %}
+    </ol>
+    </table>
+    <br>    
+  </div>
+</div>
+  <hr>
+    <img style="float: left" src="{{ url_for('static', filename='/tuoppi.jpg') }}" alt="Tuoppi">
+  <f>
+    Eikö nauttimaasi olutta löydy???
+    {% if session.username %}
+      <a href="/newbeer">Lisää uusi olut tästä linkistä.</a>
+    {% else %}
+      Luo <a href=/new_user>tunnukset </a> lisätäksesi olut tietokantaan.
+    {% endif %}    
+  </f>
+     <img style="float: right" src="{{ url_for('static', filename='/tuoppi.jpg') }}" alt="Tuoppi">
+</html>

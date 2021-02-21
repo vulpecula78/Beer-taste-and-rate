@@ -53,11 +53,15 @@ def addreview(comment, score, beer, username):
         return False
     return True
 
-def find(name):
-    try:
-        sql = "SELECT name FROM beer WHERE name LIKE :name"
-        result = db.session.execute(sql, {"name":"%"+name+"%"})
-        foundedbeer = result.fetchone()[0]
+def find(name, country_id):
+    try:        
+        if country_id != "Kaikki":
+            sql = "SELECT name FROM beer WHERE name ILIKE :name AND country_id=:country_id LIMIT 8"
+            result = db.session.execute(sql, {"name":"%"+name+"%", "country_id":country_id})            
+        else:
+            sql = "SELECT name FROM beer WHERE name ILIKE :name LIMIT 8"
+            result = db.session.execute(sql, {"name":"%"+name+"%"})
+        foundedbeer = result.fetchall()
     except:
         return False
     return foundedbeer
