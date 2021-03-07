@@ -23,7 +23,9 @@
     Hae olut:
     <form action="/findbeer" method="POST" style="color:rgb(112, 230, 226)">  
       <input type="text" name="name" size="20"> <select name="country" id="country">       
-      <option value="Kaikki">Kaikki</option> {% for maa in country %} <option value="{{ maa[0] }}"> {{ maa[1] }} </option> {% endfor %}  </select>
+      <option value="Kaikki">Kaikki maat</option> {% for maa in country %} <option value="{{ maa[0] }}"> {{ maa[1] }} </option> {% endfor %}  </select>
+      <select name="types" id="types">
+      <option value="Kaikki">Kaikki tyypit</option> {% for type in types %} <option value="{{ type[0] }}"> {{ type[1] }} </option> {% endfor %}  </select>
       <input type="submit" value="Etsi">
     </form> 
     {% if session.founded %}
@@ -70,7 +72,7 @@
     <br>
     <ol style="color: rgb(156, 161, 22)">    
       {% for beer in bests %} 
-          <li><a href="/beer/{{beer[0]}}">{{ beer[0]}}  &nbsp; &nbsp; &nbsp; {{ beer[1] }}</a></li>        
+          <li><a href="/beer/{{beer[0]}}">{{ beer[0] }}: &nbsp; arvosana: {{ beer[1] }} &nbsp; ({{beer[2]}} arvostelua)</a></li>        
         <br>
       {% endfor %}
     </ol>
@@ -86,7 +88,14 @@
       <a href="/newbeer">Lisää uusi olut tästä linkistä.</a>
     {% else %}
       Luo <a href=/new_user>tunnukset </a> lisätäksesi olut tietokantaan.
-    {% endif %}    
+    {% endif %}   
+    {% if session.username == 'Admin' %}
+      <br>
+      <form action="/admins" method="POST" style="color:rgb(112, 230, 226)">
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+        <input type="submit" value="Hallinta">
+      </form>
+    {% endif %}
   </f>
      <img style="float: right" src="{{ url_for('static', filename='/tuoppi.jpg') }}" alt="Tuoppi">
 </html>

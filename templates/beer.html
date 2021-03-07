@@ -1,7 +1,8 @@
 {% extends "layout.html" %}
 {% block title %}Etusivu{% endblock %}
 {% block content %}
-
+<div style="margin: 20px">
+<h2 style="color:rgb(156, 161, 22)">{{ beerdata[0][0] }} &nbsp; &nbsp; Arvosana: &nbsp; {{ avgscore[0] }}</h2>
 <table border="3" cellspacing="5" style="color:rgb(112, 230, 226)">
   <tr>
     <th>Olut</th><th>Alk. %</th><th>tyyppi</th><th>valmistaja</th><th>valmistusmaa</th><th>kuvaus:</th>
@@ -19,11 +20,13 @@
     </tr>
   {% endfor %}
 </table> 
+</div>
 
 <p>
   <br>
 </p>
 
+<div style="margin: 20px">
 <table border="1" cellpadding="5" cellspacing="5" style="color:rgb(112, 230, 226)">
   <tr>
     <th>Arvostelija:</th><th>Pisteet:</th><th>Kommentti</th><th>Päiväys:</th>
@@ -36,6 +39,7 @@
       </tr>
     {% endfor %}
 </table>
+</div>
 
 <input style="margin-top: 15px" type="button" name="Takaisin" value="Takaisin" onClick="window.location.href='/main';" />
 <hr>

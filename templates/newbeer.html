@@ -39,6 +39,7 @@
     Oluen kuvaus:<br>
       <textarea name="description" rows="3" cols="25"></textarea>
     <br>
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     <input type="submit" value="Lisää"> <input type="button" name="Takaisin" value="Takaisin" onClick="window.location.href='/main';" />
   </form>
   
@@ -61,9 +62,9 @@
 </script>
 
 </g>
-  <br>
-  <hr>
-  <f>
-    Jos ei panimoa, maata tai oluen tyyppiä löydy listalta, niin voit lisätä ne <a href="/brewery">täältä</a>
-  </f>
+<br>
+<hr>
+<f>
+  Jos ei panimoa, maata tai oluen tyyppiä löydy listalta, niin voit lisätä ne <a href="/brewery">täältä</a>
+</f>
 {% endblock %}

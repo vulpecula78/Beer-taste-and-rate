@@ -53,11 +53,17 @@ def addreview(comment, score, beer, username):
         return False
     return True
 
-def find(name, country_id):
+def find(name, country_id, type_id):
     try:        
-        if country_id != "Kaikki":
+        if country_id != "Kaikki" and type_id != "Kaikki":
+            sql = "SELECT name FROM beer WHERE name ILIKE :name AND country_id=:country_id AND type_id=:type_id LIMIT 8"
+            result = db.session.execute(sql, {"name":"%"+name+"%", "country_id":country_id, "type_id":type_id}) 
+        elif country_id != "Kaikki" and type_id == "Kaikki":
             sql = "SELECT name FROM beer WHERE name ILIKE :name AND country_id=:country_id LIMIT 8"
-            result = db.session.execute(sql, {"name":"%"+name+"%", "country_id":country_id})            
+            result = db.session.execute(sql, {"name":"%"+name+"%", "country_id":country_id}) 
+        elif country_id == "Kaikki" and type_id != "Kaikki":
+            sql = "SELECT name FROM beer WHERE name ILIKE :name AND type_id=:type_id LIMIT 8"
+            result = db.session.execute(sql, {"name":"%"+name+"%", "type_id":type_id})
         else:
             sql = "SELECT name FROM beer WHERE name ILIKE :name LIMIT 8"
             result = db.session.execute(sql, {"name":"%"+name+"%"})
@@ -66,3 +72,18 @@ def find(name, country_id):
         return False
     return foundedbeer
     
+def best():
+    try:
+        result = db.session.execute("SELECT beer.name, AVG(score)::numeric(10,2), count(score) FROM ratings JOIN beer ON beer.id = beer_id GROUP BY beer.name ORDER BY AVG(score) DESC LIMIT 5")
+        bests = result.fetchall()
+        return bests
+    except:
+        return None
+
+def latest():
+    try:
+        result = db.session.execute("SELECT name FROM beer ORDER BY created_at DESC LIMIT 5") 
+        olut = result.fetchall()
+        return olut
+    except:
+        return None

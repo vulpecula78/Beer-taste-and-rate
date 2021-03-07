@@ -30,6 +30,7 @@
       <input type="number" min="1" max="10" step="1" name="score" size="10">
       <input type="hidden" name="beer" value="{{beerdata[0][0]}}">
       <input type="hidden" name="username" value="{{ session.username }}">
+      <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
       <input type="submit" value="Arvostele"> 
       <br>
       <input type="button" name="Peruuta" value="Peruuta" onClick="window.location.href='/beer/{{beerdata[0][0]}}';">
@@ -53,6 +54,7 @@
     </f>
   </div>
   <div class="rightarea">
+    <img style="float: right; padding-right: 25px" src="{{ url_for('static', filename='/pieni_tuopillinen.JPG') }}" alt="Tuopillinen olutta"><br>
   </div>
 </div>
 <p>

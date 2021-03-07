@@ -26,10 +26,6 @@ a:visited {
   margin-right: auto!important;
 }
 
-.spacer {
-    height: 40px;
-}
-
 td .btn {
   position: absolute;
   margin-top: 7px;
@@ -44,6 +40,10 @@ td input {
 input {    
     margin-bottom: 8px;
     margin-right: 10px;
+}
+
+option {
+    width: 150px;
 }
 
 select {
@@ -90,7 +90,7 @@ a.button:hover, a.button:active {
   height: 400px;
   width: 33%;
   text-align: left;
-  padding-top: 50px;
+  padding-top: 20px;
   padding-left: 50px;
 }
 

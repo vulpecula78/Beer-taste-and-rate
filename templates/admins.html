@@ -1,0 +1,108 @@
+{% extends "layout.html" %}
+{% block title %}Ylläpito!!!!{% endblock %}
+{% block content %}
+<p>
+  <br>
+</p>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes style=color:red>
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+<f>
+<div class="areas">
+  <div class="leftarea section">
+  Poista virheellinen maa:
+    <form action="/rm_country" method="POST" style="color:rgb(112, 230, 226)">  
+      <select name="country" id="country">       
+        {% for maa in country %}
+          <option value="{{ maa[0] }}"> {{ maa[1] }} </option> 
+        {% endfor %}  
+      </select>
+      <input type="submit" value="Poista">
+    </form>
+    Poista olut tyyppi:
+    <form action="/rm_type" method="POST" style="color:rgb(112, 230, 226)">
+      <select name="types" id="types">
+        {% for type in types %}
+          <option value="{{ type[0] }}"> {{ type[1] }} </option>
+        {% endfor %} 
+      </select>
+      <input type="submit" value="Poista">
+    </form>
+    Poista panimo:
+    <form action="/rm_brewery" method="POST" style="color:rgb(112, 230, 226)">
+      <select name="brewery" id="brewery">
+        {% for brewer in brewery %}
+          <option value="{{ brewer[0] }}"> {{ brewer[1] }} </option>
+        {% endfor %} 
+      </select>
+      <input type="submit" value="Poista">
+    </form> 
+  </div>  
+  
+  <div class="middlearea section">
+    Poista Käyttäjä:
+    <form action="/rm_user" method="POST" style="color:rgb(112, 230, 226)">  
+      <select name="user" id="user">       
+        {% for user in users %}
+          <option value="{{ user[0] }}"> {{ user[1] }} </option> 
+        {% endfor %}  
+      </select>
+      <input type="submit" value="Poista">
+    </form>
+    Poista olut:
+    <form action="/rm_beer" method="POST" style="color:rgb(112, 230, 226)">  
+      <select name="beer" id="beer">       
+        {% for beer in beers %}
+          <option value="{{ beer[0] }}"> {{ beer[1] }} </option> 
+        {% endfor %}  
+      </select>
+      <input type="submit" value="Poista">
+    </form>
+    <form action="/rm_comment" method="POST" style="color:rgb(112, 230, 226)">
+      Poista kommentti, jonka id on<br>
+      <input type="text" name="ratings_id" size="4"><input type="submit" value="Poista">
+    </form>
+  </div>
+  
+  <div class="rightarea section">
+    Kommenttien tarkastelu:
+    <form action="/list_ratings" method="POST" style="color:rgb(112, 230, 226)">          
+      <input type="submit" value="Näytä">käyttäjän <input type="text" name="name" size="18"> kommentit.
+    </form>
+
+    {% if session.ratings %}
+      Kommentit:<br>
+      <table border="1" cellspacing="5" style="color:rgb(112, 230, 226)">
+        <tr>
+          <th>Id:&nbsp; </th><th> Käyttäjä: &nbsp;</th><th>Kommentti:&nbsp; </th>
+        </tr>
+        {% for row in ratings %}
+          <tr style="color: rgb(156, 161, 22)">
+            <td> {{row[0]}}</td> <td>{{row[1]}}</td><td> {{row[2]}} </td>          
+        {% endfor %}
+      </tr>
+      </table>
+      {% else %}
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul class=flashes>
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+      {% endif %}
+  </div>
+</div>
+<input style="padding: 40px; margin-left: 50px;: bottom" type="button" name="Takaisin" value="Palaa pääsivulle" onClick="window.location.href='/main';" />
+</f>
+
+{% endblock %}

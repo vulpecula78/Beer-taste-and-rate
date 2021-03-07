@@ -2,31 +2,70 @@
 {% block title %}Add brewery{% endblock %}
 {% block content %}
 
-  <f>
-    Lisää tietokantaan panimo, maa tai olet tyyppi.<br>
-  </f>
-  <spacer></spacer>
+<f style="margin-left: 50px">
+  Lisää tietokantaan panimo, maa tai olet tyyppi.<br>
+</f>
+<br>
   
-  <form action="/addbrewery" method="POST" style="color:rgb(112, 230, 226)">
-    <label for="name">Panimon nimi: </label>
-      <input type="text" name="brewery" size="20"> Panimon nimi esim. Brauerei Beck.<br>
-      <input type="submit" value="Lisää">
-  </form> 
+<form action="/addbrewery" method="POST" style="color:rgb(112, 230, 226); margin-left: 50px" onsubmit="return chkbrewery(this)">
+  <label for="name">Panimon nimi: </label>
+    <input type="text" name="brewery" size="20"> Panimon nimi esim. Brauerei Beck.<br>
+    <input type="submit" value="Lisää">
+</form> 
   
-  <form action="/addcountry" method="POST" style="color:rgb(112, 230, 226)">
+  <form action="/addcountry" method="POST" style="color:rgb(112, 230, 226); margin-left: 50px" onsubmit="return chkcountry(this)">
     <label for="name">Maan nimi: </label>
       <input type="text" name="country" size="20"> Maan nimi esim. Guatemala.<br>
       <input type="submit" value="Lisää">
   </form> 
   
-  <form action="/addtype" method="POST" style="color:rgb(112, 230, 226)">
+  <form action="/addtype" method="POST" style="color:rgb(112, 230, 226); margin-left: 50px" onsubmit="return chkbeertype(this)">
     <label for="name">Oluen tyyppi: </label>
       <input type="text" name="beertype" size="20"> Panimon nimi esim. IPA.<br>
       <input type="submit" value="Lisää">
   </form>   
   <br>
   <hr>  
-  <form action="/newbeer" style="color:rgb(112, 230, 226)">
+  <form action="/newbeer" style="color:rgb(112, 230, 226); margin-left: 50px">
       <input type="submit" value="Valmis">
   </form> 
+  
+<script>
+function chkbrewery(form) {
+    if (form.brewery.value.length < 1) {
+        alert("Ei kelvollinen nimi!");
+        return false;
+    }
+    if (form.brewery.value.length > 25) {
+        alert("Liian pitkä nimi!");
+        return false;
+    }
+    return true;
+}
+
+function chkcountry(form) {
+    if (form.country.value.length < 1) {
+        alert("Ei kelvollinen nimi!");
+        return false;
+    }
+    if (form.country.value.length > 25) {
+        alert("Ei kelvollinen nimi!");
+        return false;
+    }
+    return true;
+}
+
+function chkbeertype(form) {
+    if (form.beertype.value.length < 1) {
+        alert("Ei kelvollinen nimi!");
+        return false;
+    }
+    if (form.beertype.value.length > 25) {
+        alert("Ei kelvollinen nimi!");
+        return false;
+    }
+    return true;
+}
+</script>
+
 {% endblock %}
