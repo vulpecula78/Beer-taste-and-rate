@@ -1,8 +1,8 @@
-#Beer-taste-and-rate
+# Beer-taste-and-rate
 
-###Aineopintojen harjoitustyö: Tietokantasovellus
+### Aineopintojen harjoitustyö: Tietokantasovellus
 
-###Olut arvosteluja: Maista ja kerro mielipiteesi
+### Olut arvosteluja: Maista ja kerro mielipiteesi
 
 Tällä sovelluksella käyttäjät voivat pisteyttää ja antaa mielipiteensä oluista, sekä tarkastella muiden antamia arvosteluja. Tietokannasta voi hakea oluita nimen perusteella, sekä rajata hakua maittain tai oluttyypin mukaan. Sovellus näyttää myös viimeisimmät lisäykset, sekä parhaan pisteiden keskiarvon omaavat oluet.
 
