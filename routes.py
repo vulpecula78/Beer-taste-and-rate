@@ -42,7 +42,12 @@ def findbeer():
 @app.route("/admins", methods=["POST"])
 def admin():
     if session["csrf_token"] != request.form["csrf_token"]:
-        abort(403)
+        abort(403)        
+    else: 
+        return redirect("/administration")
+    
+@app.route("/administration")
+def administration():
     result = db.session.execute("SELECT * FROM countries")
     country = result.fetchall()
     result = db.session.execute("SELECT * FROM types")
@@ -60,37 +65,37 @@ def rm_country():
     country = request.form["country"]
     if admins.rm_country(country):
         flash("Maa poistettu tietokannasta")
-        return redirect("/admins")
+        return redirect("/administration")
     else:
         flash("Virhe poistettaessa maata tietokannasta!")
-        return redirect("/admins")
+        return redirect("/administration")
 
 @app.route("/rm_type", methods=["POST"])
 def rm_type():
     types = request.form["types"]
     if admins.rm_type(types):
         flash("Oluttyyppi poistettu tietokannasta")
-        return redirect("/admins")
+        return redirect("/administration")
     else:
         flash("Virhe poistettaessa oluttyyppiä tietokannasta!")
-        return redirect("/admins")
+        return redirect("/administration")
     
 @app.route("/rm_brewery", methods=["POST"])
 def rm_brewery():
     brewery = request.form["brewery"]
     if admins.rm_brewery(brewery):
         flash("Panimo poistettu tietokannasta")
-        return redirect("/admins")
+        return redirect("/administration")
     else:
         flash("Virhe poistettaessa panimoa tietokannasta!")
-        return redirect("/admins")
+        return redirect("/administration")
     
 @app.route("/rm_user", methods=["POST"])
 def rm_user():
     user = request.form["user"]
     if admins.rm_user(user):
         flash("Käyttäjä poistettu tietokannasta")
-        return redirect("/admins")
+        return redirect("/administration")
     else:
         flash("Virhe poistettaessa käyttäjää tietokannasta!")
         return redirect("/admins")
@@ -100,20 +105,20 @@ def rm_beer():
     beer = request.form["beer"]
     if admins.rm_beer(beer):
         flash("Olut poistettu tietokannasta")
-        return redirect("/admins")
+        return redirect("/administration")
     else:
         flash("Virhe poistettaessa olutta tietokannasta!")
-        return redirect("/admins")
+        return redirect("/administration")
     
 @app.route("/rm_comment", methods=["POST"])
 def rm_comment():
     id = request.form["ratings_id"]
     if admins.rm_comment(id):
         flash("Kommentti poistettu")
-        return redirect("/admins")
+        return redirect("/administration")
     else:
         flash("Virhe poistettaessa kommenttia tietokannasta!")
-        return redirect("/admins")
+        return redirect("/administration")
     
 @app.route("/list_ratings", methods=["POST"])
 def list_ratings():
@@ -133,10 +138,10 @@ def list_ratings():
         session["ratings"] = True
         return render_template("/admins.html", ratings = ratings, country = country, types = types, brewery = brewery, users = users, beers = beers)
     else:
-        if session.get('founded'):
-            del session["founded"]
+        if session.get('ratings'):
+            del session["ratings"]
         flash("Haku ei palauttanut yhtään tulosta.")
-        return redirect("/admins")
+        return render_template("/admins.html", country = country, types = types, brewery = brewery, users = users, beers = beers)
     
 #---------------------------------------Beer----------------------------------------------------------
 @app.route("/beer/<beer>")
