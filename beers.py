@@ -2,6 +2,7 @@ from app import app
 from flask import render_template, request, redirect, session, flash
 from db import db
 
+#addbeer into database
 def addbeer(name, alcohol, beertype, country, brewery, description):
     try:
         sql = "INSERT INTO beer (name, alcohol_content, type_id, country_id, brewery_id, description, created_at) VALUES (:name, :alcohol_content, :type_id, :country_id, :brewery_id, :description, NOW())"
@@ -11,6 +12,7 @@ def addbeer(name, alcohol, beertype, country, brewery, description):
         return False
     return True
 
+#add brewery into database
 def addbrewery(brewery):
     try:
         sql = "INSERT INTO breweries (brewery) VALUES (:brewery)"
@@ -20,6 +22,7 @@ def addbrewery(brewery):
         return False
     return True
 
+#add country into database
 def addcountry(country):
     try:
         sql = "INSERT INTO countries (country) VALUES (:country)"
@@ -29,6 +32,7 @@ def addcountry(country):
         return False
     return True
 
+#add beertype into data base
 def addtype(type):
     try:
         sql = "INSERT INTO types (type) VALUES (:type)"
@@ -38,6 +42,7 @@ def addtype(type):
         return False
     return True
 
+#add user review of beer
 def addreview(comment, score, beer, username):
     sql = "SELECT id FROM users WHERE username=:username"
     result = db.session.execute(sql, {"username":username})
@@ -53,6 +58,17 @@ def addreview(comment, score, beer, username):
         return False
     return True
 
+# edit review
+def editreview(comment, score, comment_id):
+    try:
+        sql = "UPDATE ratings SET score=:score, comment=:comment WHERE id=:comment_id"
+        db.session.execute(sql, {"comment":comment, "score":score, "comment_id":comment_id})
+        db.session.commit()
+    except:
+        return False
+    return True
+
+#search for beer
 def find(name, country_id, type_id):
     try:        
         if country_id != "Kaikki" and type_id != "Kaikki":
@@ -71,6 +87,13 @@ def find(name, country_id, type_id):
     except:
         return False
     return foundedbeer
+
+def beerdata(beer):
+    sql = """SELECT name, alcohol_content, types.type, breweries.brewery, countries.country, description FROM beer
+            JOIN breweries ON beer.brewery_id = breweries.id JOIN types ON beer.type_id = types.id JOIN countries ON beer.country_id = countries.id WHERE name=:beer"""
+    result = db.session.execute(sql, {"beer":beer})
+    beerdata = result.fetchall()
+    return beerdata
     
 def best():
     try:
@@ -87,3 +110,31 @@ def latest():
         return olut
     except:
         return None
+
+def ratings(beer):
+    try:
+        sql = """SELECT ratings.id, users.username, score,  comment, TO_CHAR(ratings.created_at, 'DD-MM-YYYY HH24:MI') FROM ratings JOIN beer ON beer.id = ratings.beer_id JOIN users ON users.id = ratings.user_id WHERE beer.name=:beer"""
+        result = db.session.execute(sql, {"beer":beer})
+        ratings = result.fetchall()
+        return ratings
+    except:
+        return None
+    
+def avgscore(beer):
+    try:
+        sql = "SELECT AVG(score)::numeric(10,2) FROM ratings JOIN beer ON beer.id = beer_id WHERE beer.name=:beer GROUP BY beer.name"
+        result = db.session.execute(sql, {"beer":beer})
+        avgscore = result.fetchone()
+        return avgscore
+    except:
+        return 0
+    
+def rated(ratings):
+    user = session.get('username')
+    for item in ratings:
+        if item[1] == user:
+            rated = True
+            return rated      
+    rated = False
+    return rated
+        

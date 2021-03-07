@@ -120,6 +120,22 @@ def rm_comment():
         flash("Virhe poistettaessa kommenttia tietokannasta!")
         return redirect("/administration")
     
+@app.route("/adminedit", methods=["POST"])
+def adminedit():
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
+    comment_id = request.form["comment_id"]
+    beer_id = request.form["beer_id"]
+    sql = "SELECT name FROM beer WHERE id=:beer_id"
+    result = db.session.execute(sql, {"beer_id":beer_id})
+    beer = result.fetchone()[0]
+    beerdata = beers.beerdata(beer)
+    sql = "SELECT comment, score FROM ratings WHERE id=:comment_id"
+    result = db.session.execute(sql, {"comment_id":comment_id})
+    rating = result.fetchall()
+    return render_template("/review.html", beerdata=beerdata, rating=rating, comment_id=comment_id)
+
+    
 @app.route("/list_ratings", methods=["POST"])
 def list_ratings():
     name = request.form["name"]
@@ -146,17 +162,11 @@ def list_ratings():
 #---------------------------------------Beer----------------------------------------------------------
 @app.route("/beer/<beer>")
 def beer(beer):
-    sql = """SELECT name, alcohol_content, types.type, breweries.brewery, countries.country, description FROM beer
-            JOIN breweries ON beer.brewery_id = breweries.id JOIN types ON beer.type_id = types.id JOIN countries ON beer.country_id = countries.id WHERE name=:beer"""
-    result = db.session.execute(sql, {"beer":beer})
-    beerdata = result.fetchall()
-    sql = """SELECT users.username, score,  comment, TO_CHAR(ratings.created_at, 'DD-MM-YYYY HH24:MI') FROM ratings JOIN beer ON beer.id = ratings.beer_id JOIN users ON users.id = ratings.user_id WHERE beer.name=:beer"""
-    result = db.session.execute(sql, {"beer":beer})
-    ratings = result.fetchall()
-    sql = "SELECT AVG(score)::numeric(10,2) FROM ratings JOIN beer ON beer.id = beer_id WHERE beer.name=:beer GROUP BY beer.name"
-    result = db.session.execute(sql, {"beer":beer})
-    avgscore = result.fetchone()
-    return render_template("/beer.html", beerdata = beerdata, ratings = ratings, avgscore = avgscore)
+    beerdata = beers.beerdata(beer)
+    ratings = beers.ratings(beer)
+    avgscore = beers.avgscore(beer)
+    rated = beers.rated(ratings)
+    return render_template("/beer.html", beerdata = beerdata, ratings = ratings, avgscore = avgscore, rated=rated)
     
 @app.route("/newbeer")
 def newbeer():
@@ -222,11 +232,10 @@ def addtype():
 
 @app.route("/review/<beer>")
 def review(beer):
-    sql = """SELECT name, alcohol_content, types.type, breweries.brewery, countries.country, description FROM beer
-            JOIN breweries ON beer.brewery_id = breweries.id JOIN types ON beer.type_id = types.id JOIN countries ON beer.country_id = countries.id WHERE name=:beer"""
-    result = db.session.execute(sql, {"beer":beer})
-    beerdata = result.fetchall()
-    return render_template("/review.html", beerdata=beerdata)
+    beerdata = beers.beerdata(beer)
+    score = 4
+    comment = ""
+    return render_template("/review.html", beerdata=beerdata, score = score, comment = comment)
 
 @app.route("/new_review", methods=["POST"])
 def new_review():
@@ -236,12 +245,34 @@ def new_review():
     score = request.form["score"]
     beer = request.form["beer"]
     username = request.form["username"]
-    if beers.addreview(review, score, beer, username):
-        return redirect("/beer/"+beer)        
+    edit = request.form["edit"]
+    if edit == "True":
+        comment_id = request.form["comment_id"]
+        if beers.editreview(review, score, comment_id):
+            return redirect("/beer/"+beer)
+        else:
+            flash("Arvostelun muokkaamisessa tapahtui virhe.")
+            return redirect("/review/"+beer)
     else:
-        flash("Arvostelun lisäämisessä tapahtui virhe.")
-        return redirect("/review/"+beer)
+        if beers.addreview(review, score, beer, username):
+            return redirect("/beer/"+beer)        
+        else:
+            flash("Arvostelun lisäämisessä tapahtui virhe.")
+            return redirect("/review/"+beer)
     return render_template("/beer.html")
+
+
+@app.route("/edit_review", methods=["POST"])
+def edit_review():
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
+    comment_id = request.form["comment_id"]
+    beer = request.form["beerdata"]
+    beerdata = beers.beerdata(beer)
+    sql = "SELECT comment, score FROM ratings WHERE id=:comment_id"
+    result = db.session.execute(sql, {"comment_id":comment_id})
+    rating = result.fetchall()
+    return render_template("/review.html", beerdata=beerdata, rating=rating, comment_id=comment_id)
 
 #--------------------------------------------User-----------------------------------------------------
 @app.route("/login",methods=["POST"])
@@ -283,4 +314,3 @@ def create_user():
         flash("Käyttäjän lisääminen epäonnistui.")
         return redirect("/new_user")
  
-

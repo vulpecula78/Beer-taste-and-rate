@@ -21,21 +21,42 @@
     <f>
       Kommentoi olutta lyhyesti ja anna arvosana väliltä 1 - 10.
     </f>
-    <form action="/new_review" method="POST" style="color:rgb(112, 230, 226)">
+    {%if rating %}
+      <form action="/new_review" method="POST" style="color:rgb(112, 230, 226)">
       <br>
-      Arvostelu:<br>
-      <textarea name="review" rows="4" cols="30"></textarea>
+      Arvostelu:<br>      
+      <textarea name="review" rows="4" cols="30">{{ rating[0][0] }}</textarea>
       <br><br>
       Pisteet:<br>
-      <input type="number" min="1" max="10" step="1" name="score" size="10">
+      <input type="number" value="{{ rating[0][1] }}" min="1" max="10" step="1" name="score" size="10">
       <input type="hidden" name="beer" value="{{beerdata[0][0]}}">
       <input type="hidden" name="username" value="{{ session.username }}">
       <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+      <input type="hidden" name="comment_id" value="{{ comment_id }}">
+      <input type="hidden" name="edit" value="True">
+      <input type="submit" value="Muuta"> 
+      <br>
+      <input type="button" name="Peruuta" value="Peruuta" onClick="window.location.href='/beer/{{beerdata[0][0]}}';">
+      <br>
+    </form> 
+    {% else %}
+    <form action="/new_review" method="POST" style="color:rgb(112, 230, 226)">
+      <br>
+      Arvostelu:<br>
+      <textarea name="review" value="{{ comment }}" rows="4" cols="30"></textarea>
+      <br><br>
+      Pisteet:<br>
+      <input type="number" value="{{ score }}" min="1" max="10" step="1" name="score" size="10">
+      <input type="hidden" name="beer" value="{{beerdata[0][0]}}">
+      <input type="hidden" name="username" value="{{ session.username }}">
+      <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+       <input type="hidden" name="edit" value="False">
       <input type="submit" value="Arvostele"> 
       <br>
       <input type="button" name="Peruuta" value="Peruuta" onClick="window.location.href='/beer/{{beerdata[0][0]}}';">
       <br>
     </form>
+    {% endif %}
   </div>
   <div class="middlearea section">
     <f>

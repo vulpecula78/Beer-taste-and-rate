@@ -67,7 +67,8 @@
     </form>
     <form action="/rm_comment" method="POST" style="color:rgb(112, 230, 226)">
       Poista kommentti, jonka id on<br>
-      <input type="text" name="ratings_id" size="4"><input type="submit" value="Poista">
+      <input type="text" name="ratings_id" size="4">
+      <input type="submit" value="Poista">      
     </form>
   </div>
   
@@ -81,11 +82,19 @@
       Kommentit:<br>
       <table border="1" cellspacing="5" style="color:rgb(112, 230, 226)">
         <tr>
-          <th>Id:&nbsp; </th><th> Käyttäjä: &nbsp;</th><th>Kommentti:&nbsp; </th>
+          <th>Id:&nbsp; </th><th> Käyttäjä: &nbsp;</th><th>Kommentti:&nbsp;</th><th>Pts:</th>
         </tr>
         {% for row in ratings %}
           <tr style="color: rgb(156, 161, 22)">
-            <td> {{row[0]}}</td> <td>{{row[1]}}</td><td> {{row[2]}} </td>          
+            <td> {{row[0]}}</td> <td>{{row[1]}}</td><td> {{row[2]}} </td><td>{{row[3]}} <td style="btn">
+            <form action="/adminedit" method="POST" style="color:rgb(112, 230, 226)">
+              <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+              <input type="hidden" name="comment_id" value="{{ row[0] }}">
+              <input type="hidden" name="comment" value="{{ row[2] }}">
+              <input type="hidden" name="score" value="{{ row[3] }}"> 
+              <input type="hidden" name="beer_id" value="{{ row[4] }}">   
+              <input type="submit"  value="Muokkaa">  
+            </form></td>
         {% endfor %}
       </tr>
       </table>

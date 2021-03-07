@@ -13,9 +13,11 @@
         <td>{{ item }}</td>
       {% endfor %}
         {% if session.username %}
-          <td style = "btn"> 
-            <a href="/review/{{beerdata[0][0]}}" class="button">arvostele</a>
-          </td>
+          {%if not rated %}
+            <td style = "btn"> 
+              <a href="/review/{{beerdata[0][0]}}" class="button">arvostele</a>
+            </td>
+          {% endif %}
         {% endif %}
     </tr>
   {% endfor %}
@@ -33,9 +35,17 @@
   </tr>
     {% for row in ratings %}
       <tr>
-        {% for item in row %}
-          <td>{{ item }}</td>
-        {% endfor %}
+        <td>{{ row[1] }}</td><td>{{ row[2] }}</td><td>{{ row[3] }}</td><td>{{ row[4] }}</td>
+        {% if session.username == row[1] %}
+          <td style = "btn"> 
+            <form action="/edit_review" method="POST" style="color:rgb(112, 230, 226)">
+              <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+              <input type="hidden" name="comment_id" value="{{ row[0] }}">
+              <input type="hidden" name="beerdata" value="{{ beerdata[0][0] }}">
+              <input type="submit" value="Muokkaa">
+            </form>
+          </td>
+        {% endif %}
       </tr>
     {% endfor %}
 </table>
@@ -43,5 +53,11 @@
 
 <input style="margin-top: 15px" type="button" name="Takaisin" value="Takaisin" onClick="window.location.href='/main';" />
 <hr>
-
+{% if session.username == 'Admin' %}
+  <br>
+    <form action="/admins" method="POST" style="color:rgb(112, 230, 226)">
+      <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+      <input type="submit" value="Hallinta">
+    </form>
+{% endif %}
 {% endblock %}
